@@ -1,21 +1,18 @@
-require "omniauth-oauth2"
+require 'omniauth/strategies/oauth2'
+
 
 module OmniAuth
   module Strategies
     class Airseed < OmniAuth::Strategies::OAuth2
-      PASSTHROUGHS = %w[
-        token
-        info
-        scope
-        service
-      ]
+      BASE_URL = "https://auth.airseed.com"
+      PASSTHROUGHS = %w(state scope redirect_uri provider)
 
       option :name, "airseed"
 
       option :client_options, {
-        :site => "https://auth.airseed.com",
-        :authorize_url => "https://auth.airseed.com/oauth/authenticate",
-        :token_url => "https://auth.airseed.com/oauth/token"
+        :site => BASE_URL,
+        :authorize_url => "#{BASE_URL}/oauth/authenticate",
+        :token_url => "#{BASE_URL}/oauth/token"
       }
 
       def authorize_params
